@@ -1,28 +1,9 @@
 from fastapi import FastAPI
-from typing import List, Dict
+from app.schema import ProdutosSchema
+from app.data import Produtos
 
 app = FastAPI()
-
-produtos: List[Dict[str, any]] = [
-    {
-        "id": 1,
-        "nome": "Produto 1",
-        "descricao": "Descrição do Produto 1",
-        "preco": 100.0,
-    },
-    {
-        "id": 2,
-        "nome": "Produto 2",
-        "descricao": "Descrição do Produto 2",
-        "preco": 200.0,
-    },
-    {
-        "id": 3,
-        "nome": "Produto 3",
-        "descricao": "Descrição do Produto 3",
-        "preco": 300.0,
-    },
-]
+produtos = Produtos()
 
 
 @app.get("/")
@@ -30,14 +11,11 @@ def ola_mundo():
     return {"Olá": "Mundo"}
 
 
-@app.get("/produtos")
+@app.get("/produtos", response_model=list[ProdutosSchema])
 def listar_produtos():
-    return produtos
+    return produtos.listar_produtos()
 
 
-@app.get("/produtos/{produto_id}")
+@app.get("/produtos/{produto_id}", response_model=ProdutosSchema)
 def buscar_produto(produto_id: int):
-    for produto in produtos:
-        if produto["id"] == produto_id:
-            return produto
-    return {"mensagem": "Produto não encontrado"}
+    return produtos.buscar_produto(produto_id)
