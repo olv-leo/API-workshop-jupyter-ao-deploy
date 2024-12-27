@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "api-workshop-jupyter-ao-deploy"
+version = "0.1.0"
+description = ""
+authors = ["olv-leo <olv.leo@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.115.6"
+uvicorn = "^0.34.0"
+taskipy = "^1.14.1"
+pytest = "^8.3.4"
+httpx = "^0.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+
+run = "uvicorn main:app --reload"
+test = "pytest -v"
+kill = "kill -9 $(lsof -t -i:8000)"
