@@ -1,8 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveInt
+from typing import Optional
 
 
 class ProdutosSchema(BaseModel):
     id: int
     nome: str
-    descricao: str
-    preco: float
+    descricao: Optional[str] = None
+    preco: PositiveInt
