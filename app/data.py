@@ -32,3 +32,7 @@ class Produtos:
             if produto["id"] == produto_id:
                 return produto
         return {"mensagem": "Produto não encontrado"}
+
+    def add_produto(self, produto):
+        self.produtos.append(produto)
+        return produto
